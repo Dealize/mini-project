@@ -1,0 +1,178 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>1药网</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-title" content="">
+    <meta name="description" content="">
+    <meta name="format-detection" content="telephone=no">
+    <meta content="no-cache,must-revalidate" http-equiv="Cache-Control">
+    <meta content="no-cache" http-equiv="pragma">
+    <meta content="0" http-equiv="expires">
+    <script type="text/javascript">
+        (function (doc, win) {
+            var docEl = doc.documentElement,
+                isIOS = navigator.userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/),
+                dpr = isIOS ? Math.min(win.devicePixelRatio, 3) : 1,
+                dpr = window.top === window.self ? dpr : 1, //被iframe引用时，禁止缩放
+                resizeEvt = 'orientationchange' in window ? 'orientationchange' : 'resize';
+            docEl.dataset.dpr = dpr;
+            var recalc = function () {
+                var width = docEl.clientWidth;
+                if (width / dpr > 750) {
+                    width = 750 * dpr;
+                }
+                docEl.dataset.percent = 100;
+                docEl.style.fontSize = width / 10 + 'px';
+            };
+            recalc();
+            if (!doc.addEventListener) return;
+            win.addEventListener(resizeEvt, recalc, false);
+        })(document, window);
+    </script>
+    <link rel="stylesheet" href="//s.maiyaole.com/common/FFF/zepto/v0.2/style/base.css"/>
+    <style>
+        .carousel_container{
+            overflow: hidden;
+        }
+        .carousel_points{
+            display: flex;
+            justify-content: center;
+        }
+        .carousel_imgItem{
+            display:inline-block;
+            padding:10px;
+        }
+
+
+        .carousel2,.carousel3{
+            padding: 10px 0 15px 0;
+            background: #333;
+        }
+        .carousel2 .carousel_imgContainer{
+            display: flex;
+            width:220px;
+            height:140px;
+            background:#2D93CA;
+        }
+        .carousel2 .carousel_imgContainer>div{
+            width:50%;
+        }
+
+        .carousel2 .carousel_points{
+            margin-top:25px;
+        }
+        .carousel2 .carousel_pointItem{
+            width: 10px;
+            height: 3px;
+            margin: 0 2px;
+            background:rgba(255,255,255,0.3);
+        }
+        .carousel2 .carousel_imgBody{
+            /*width:110px;height:140px;*/
+            background-size:contain;
+        }
+        .carousel2 .otherImg{
+            /*transform: scale(0.9,0.9);*/
+            -webkit-filter: blur(2px) contrast(40%); /* Chrome, Safari, Opera */
+            filter: blur(2px) contrast(40%);
+        }
+        .carousel2 .seletedImg{
+            animation:carousel2_animate 0.3s linear 0.2s  1;
+        }
+        .carousel2 .activePoint{
+            background:rgba(255,255,255,1);
+        }
+        @keyframes carousel2_animate {
+            from{
+                transform:translate(0px)
+            }
+            50%{
+                transform:translate(-20px)
+
+            }
+            to{
+                transform:translate(0px)
+
+            }
+        }
+        @-webkit-keyframes carousel2_animate {
+            from{
+                transform:translate(0px)
+            }
+            50%{
+                transform:translate(-20px)
+
+            }
+            to{
+                transform:translate(0px)
+
+            }
+        }
+
+
+        .carousel3 .carousel_imgContainer{
+            display: flex;
+            width:200px;
+            height:300px;
+            background:#2D93CA;
+            position:relative;
+        }
+        .carousel3 .carousel_imgText{
+            background: #199;
+            width: 100%;
+            position: absolute;
+            height: 26%;
+            bottom: 0;
+        }
+        .carousel3 .otherImg{
+            transform: scale(0.9,0.9);
+            /*-webkit-filter: blur(2px) contrast(40%); !* Chrome, Safari, Opera *!*/
+            filter: blur(2px) contrast(40%);
+        }
+        .carousel3 .seletedImg{
+            transform: scale(0.9,0.9);
+
+            /*transform: scale(1,1);*/
+            /*filter: blur(2px) contrast(40%);*/
+
+            animation:carousel3_animate 0.3s linear 0.2s  1;
+            animation-fill-mode:forwards;
+        }
+        @keyframes carousel3_animate {
+            from{
+                transform: scale(0.9,0.9);
+            }
+            to{
+                transform: scale(1,1);
+            }
+        }
+        @-webkit-keyframes carousel3_animate {
+            from{
+                transform: scale(0.9,0.9);
+            }
+            to{
+                transform: scale(1,1);
+            }
+        }
+
+
+    </style>
+
+
+</head>
+<body data-res="index">
+<div class="container1" style="-webkit-overflow-scrolling:touch; ">
+</div>
+<hr>
+<div class="container2" style="-webkit-overflow-scrolling:touch; ">
+</div>
+</body>
+<script src="//s.maiyaole.com/common/FFF/zepto/v0.2/FFF.fc.template.min.js"></script>
+<script src="../lib/animate.js"></script>
+<script src="config.js" type="text/javascript" charset="utf-8"></script>
+<script>
+    require(['demo'])
+</script>
+</html>

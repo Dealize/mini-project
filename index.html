@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebView检测</title>
+    <style>
+        body {
+            padding: 20px;
+            font-family: Arial, sans-serif;
+        }
+        .info-box {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+        }
+        .label {
+            font-weight: bold;
+            color: #333;
+        }
+        .value {
+            color: #666;
+            word-break: break-all;
+        }
+    </style>
+</head>
+<body>
+    <h2>WebView 信息检测</h2>
+    <div id="info"></div>
+
+    <script>
+        function getWebViewInfo() {
+            const info = document.getElementById('info');
+            let infoHTML = '';
+
+            // 获取 User Agent
+            infoHTML += createInfoBox('User Agent', navigator.userAgent);
+
+            // 检测是否是X5内核
+            const isX5 = navigator.userAgent.toLowerCase().indexOf('tbs') > -1 
+                        || navigator.userAgent.toLowerCase().indexOf('x5') > -1;
+            infoHTML += createInfoBox('是否是X5内核', isX5 ? '是' : '否');
+
+            // 提取X5版本号（如果存在）
+            const x5VersionMatch = navigator.userAgent.match(/TBS\/([\d.]+)/i) 
+                               || navigator.userAgent.match(/X5\/([\d.]+)/i);
+            if (x5VersionMatch) {
+                infoHTML += createInfoBox('X5版本号', x5VersionMatch[1]);
+            }
+
+            // 提取Chrome版本
+            const chromeVersion = getChromeVersion();
+            infoHTML += createInfoBox('Chrome版本', chromeVersion);
+
+            // 获取浏览器详细信息
+            const browserInfo = getBrowserInfo();
+            infoHTML += createInfoBox('浏览器信息', browserInfo);
+
+            // WebView API版本
+            infoHTML += createInfoBox('WebView API版本', getWebViewVersion());
+
+            // 系统平台信息
+            infoHTML += createInfoBox('平台', navigator.platform);
+
+            // 获取设备像素比
+            infoHTML += createInfoBox('设备像素比', window.devicePixelRatio);
+
+            // 检查WebView特性支持
+            const features = checkWebViewFeatures();
+            infoHTML += createInfoBox('WebView特性支持', features);
+
+            info.innerHTML = infoHTML;
+        }
+
+        function createInfoBox(label, value) {
+            return `
+                <div class="info-box">
+                    <div class="label">${label}:</div>
+                    <div class="value">${value}</div>
+                </div>
+            `;
+        }
+
+        function getChromeVersion() {
+            const raw = navigator.userAgent.match(/Chrom(e|ium)\/([0-9]+)\./);
+            return raw ? raw[2] : '未检测到';
+        }
+
+        function getBrowserInfo() {
+            const ua = navigator.userAgent;
+            let browserInfo = '';
+
+            if (ua.includes('Firefox')) {
+                browserInfo = 'Firefox';
+            } else if (ua.includes('Chrome')) {
+                browserInfo = 'Chrome';
+            } else if (ua.includes('Safari')) {
+                browserInfo = 'Safari';
+            } else if (ua.includes('Edge')) {
+                browserInfo = 'Edge';
+            } else if (ua.includes('MSIE') || ua.includes('Trident/')) {
+                browserInfo = 'Internet Explorer';
+            } else {
+                browserInfo = '未知浏览器';
+            }
+
+            return browserInfo;
+        }
+
+        function getWebViewVersion() {
+            // 尝试获取WebView版本信息
+            const matches = navigator.userAgent.match(/Android [\d.]+/);
+            return matches ? matches[0] : '未知';
+        }
+
+        function checkWebViewFeatures() {
+            const features = [];
+            
+            // 检查常见的WebView特性
+            if ('serviceWorker' in navigator) features.push('Service Workers');
+            if ('geolocation' in navigator) features.push('Geolocation');
+            if ('WebSocket' in window) features.push('WebSocket');
+            if ('localStorage' in window) features.push('LocalStorage');
+            if ('indexedDB' in window) features.push('IndexedDB');
+            if ('Notification' in window) features.push('Notifications');
+            
+            return features.join(', ');
+        }
+
+        // 页面加载完成后执行检测
+        window.onload = getWebViewInfo;
+    </script>
+</body>
+</html>
